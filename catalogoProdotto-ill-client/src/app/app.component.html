@@ -1,26 +1,23 @@
-Id
-<input type="text" [(ngModel)]="prodotto.id">
-Descrizione
-<input type="text" [(ngModel)]="prodotto.descrizione">
-Prezzo
-<input type="text" [(ngModel)]="prodotto.prezzo">
+<h1>Catalogo Prodotti</h1>
+<input type="text" placeholder="Descrizione" [(ngModel)]="prodotto.descrizione">
+<input type="number" placeholder="Prezzo" [(ngModel)]="prodotto.prezzo">€
 <hr>
-<button (click)="recupera()">Recupera Catalogo</button>
 <button (click)="aggiungi()">Aggiungi Prodotto</button>
+<button (click)="recupera()">Recupera Catalogo</button>
 <button (click)="svuota()">Svuota Catalogo</button>
-<table *ngIf="prodotti.length> 0">
+<table *ngIf="prodotti.length> 0" id="tabella">
   <tr>
     <th>Id</th>
     <th>Descrizione</th>
-    <th>Prezzo</th>
+    <th>Prezzo(€)</th>
     <th>Elimina</th>
   </tr>
   <tr *ngFor="let p of prodotti">
-    <td>{{prodotto.id}}</td>
-    <td>{{prodotto.desc}}</td>
-    <td>{{prodotto.prezzo}}</td>
+    <td>{{p.id}}</td>
+    <td>{{p.descrizione}}</td>
+    <td>{{p.prezzo}}</td>
     <td>
-      <button (click)="elimina()">X</button>
+      <button (click)="elimina(p)">X</button>
     </td>
   </tr>
 </table>
