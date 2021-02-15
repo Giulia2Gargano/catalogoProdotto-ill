@@ -13,9 +13,13 @@ import { RispostaDto } from './risposta-dto';
 export class AppComponent {
   prodotto = new Prodotto();
   prodotti: Prodotto[] = [];
+  stato = "";
+  error: string;
   url = "http://localhost:8080/";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.recupera();
+  }
 
   recupera() {
     let oss: Observable<RispostaDto> = this.http
@@ -26,15 +30,22 @@ export class AppComponent {
   }
 
   aggiungi() {
-    let req = new RichiestaDto();
-    req.prodotto = this.prodotto;
+    if (this.prodotto.descrizione != null && this.prodotto.prezzo != null) {
+      this.stato = "";
+      let req = new RichiestaDto();
+      req.prodotto = this.prodotto;
 
-    let oss: Observable<RispostaDto> = this.http
-      .post<RispostaDto>(this.url + "aggiungi", req);
-    oss.subscribe(p => {
-      this.prodotti = p.listaProdotti;
-    });
-    this.prodotto = new Prodotto();
+      let oss: Observable<RispostaDto> = this.http
+        .post<RispostaDto>(this.url + "aggiungi", req);
+      oss.subscribe(p => {
+        this.prodotti = p.listaProdotti;
+      });
+      this.prodotto = new Prodotto();
+    }
+    else {
+      this.stato = "errore";
+      this.error = "Uno o più campi sono vuoti";
+    }
   }
 
   svuota() {

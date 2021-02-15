@@ -5,6 +5,8 @@
 <button (click)="aggiungi()">Aggiungi Prodotto</button>
 <button (click)="recupera()">Recupera Catalogo</button>
 <button (click)="svuota()">Svuota Catalogo</button>
+<br>
+<br>
 <table *ngIf="prodotti.length> 0" id="tabella">
   <tr>
     <th>Id</th>
@@ -21,3 +23,4 @@
     </td>
   </tr>
 </table>
+<h3 *ngIf="stato=='errore'">{{error}}</h3>
